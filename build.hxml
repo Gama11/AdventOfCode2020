@@ -1,0 +1,18 @@
+-cp src
+-D eval-stack
+-main Tests
+-lib utest
+-lib polygonal-ds
+# --interp
+-debug
+
+-js export/test.js
+-cmd node export/test.js
+-lib hxnodejs
+
+# -cpp export/cpp
+# -cmd export\cpp\Tests-debug.exe
+
+# -java export/java
+# -D jvm
+# -cmd java -jar export/java/Tests-debug.jar
