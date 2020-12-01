@@ -15,7 +15,10 @@ class Tests implements ITest {
 	}
 
 	function specDay01() {
-		514579 == Day01.find2020Checksum(data("day01/example"));
-		969024 == Day01.find2020Checksum(data("day01/part1"));
+		514579 == Day01.find2020Product(data("day01/example"), 2);
+		969024 == Day01.find2020Product(data("day01/part1"), 2);
+
+		241861950 == Day01.find2020Product(data("day01/example"), 3);
+		230057040 == Day01.find2020Product(data("day01/part1"), 3);
 	}
 }

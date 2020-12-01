@@ -1,15 +1,23 @@
 package days;
 
 class Day01 {
-	public static function find2020Checksum(input:String):Int {
+	public static function find2020Product(input:String, parts:Int):Int {
 		final numbers = input.split("\n").map(Std.parseInt);
 		final set = [for (n in numbers) n => true];
-		for (number in set.keys()) {
-			final summand = 2020 - number;
-			if (set.exists(summand)) {
-				return summand * number;
+		function findProduct(target:Int, parts:Int):Null<Int> {
+			for (number in set.keys()) {
+				final summand = target - number;
+				if (parts > 2) {
+					final result = findProduct(summand, parts - 1);
+					if (result != null) {
+						return result * number;
+					}
+				} else if (set.exists(summand)) {
+					return summand * number;
+				}
 			}
+			return null;
 		}
-		throw "not found";
+		return findProduct(2020, parts);
 	}
 }
