@@ -10,9 +10,12 @@ class Tests implements ITest {
 
 	function new() {}
 
-	function getData(name:String):String {
-		return sys.io.File.getContent('data/$name.txt').replace("\r", "");
+	function data(name:String):String {
+		return File.getContent('data/$name.txt').replace("\r", "");
 	}
 
-	function specDay01() {}
+	function specDay01() {
+		514579 == Day01.find2020Checksum(data("day01/example"));
+		969024 == Day01.find2020Checksum(data("day01/part1"));
+	}
 }
