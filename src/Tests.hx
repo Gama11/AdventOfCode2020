@@ -23,7 +23,10 @@ class Tests implements ITest {
 	}
 
 	function specDay02() {
-		2 == Day02.countValidPasswords(data("day02/example"));
-		614 == Day02.countValidPasswords(data("day02/input"));
+		2 == Day02.countValidPasswords(data("day02/example"), Day02.part1Policy);
+		614 == Day02.countValidPasswords(data("day02/input"), Day02.part1Policy);
+
+		1 == Day02.countValidPasswords(data("day02/example"), Day02.part2Policy);
+		354 == Day02.countValidPasswords(data("day02/input"), Day02.part2Policy);
 	}
 }
