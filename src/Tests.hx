@@ -2,6 +2,7 @@ import days.*;
 import sys.io.File;
 import utest.ITest;
 import utest.UTest;
+import Util;
 
 class Tests implements ITest {
 	static function main() {
@@ -31,7 +32,10 @@ class Tests implements ITest {
 	}
 
 	function specDay03() {
-		7 == Day03.countTreesOnTraversal(data("day03/example"));
-		187 == Day03.countTreesOnTraversal(data("day03/input"));
+		7 == Day03.countTreesOnTraversal(data("day03/example"), new Point(3, 1));
+		187 == Day03.countTreesOnTraversal(data("day03/input"), new Point(3, 1));
+
+		336 == Day03.findTreeCountProduct(data("day03/example"));
+		4723283400 == Day03.findTreeCountProduct(data("day03/input"));
 	}
 }
