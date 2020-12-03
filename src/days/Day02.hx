@@ -32,7 +32,7 @@ class Day02 {
 	}
 }
 
-typedef PasswordInfo = {
+private typedef PasswordInfo = {
 	final policy:{
 		final character:String;
 		final n1:Int;

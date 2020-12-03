@@ -29,4 +29,9 @@ class Tests implements ITest {
 		1 == Day02.countValidPasswords(data("day02/example"), Day02.part2Policy);
 		354 == Day02.countValidPasswords(data("day02/input"), Day02.part2Policy);
 	}
+
+	function specDay03() {
+		7 == Day03.countTreesOnTraversal(data("day03/example"));
+		187 == Day03.countTreesOnTraversal(data("day03/input"));
+	}
 }
