@@ -38,4 +38,9 @@ class Tests implements ITest {
 		336 == Day03.findTreeCountProduct(data("day03/example"));
 		4723283400 == Day03.findTreeCountProduct(data("day03/input"));
 	}
+
+	function specDay04() {
+		2 == Day04.countValidPassports(data("day04/example"));
+		222 == Day04.countValidPassports(data("day04/input"));
+	}
 }
