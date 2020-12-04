@@ -40,7 +40,11 @@ class Tests implements ITest {
 	}
 
 	function specDay04() {
-		2 == Day04.countValidPassports(data("day04/example"));
-		222 == Day04.countValidPassports(data("day04/input"));
+		2 == Day04.countValidPassports(data("day04/example"), Day04.isValidPart1);
+		222 == Day04.countValidPassports(data("day04/input"), Day04.isValidPart1);
+
+		0 == Day04.countValidPassports(data("day04/example2"), Day04.isValidPart2);
+		4 == Day04.countValidPassports(data("day04/example3"), Day04.isValidPart2);
+		140 == Day04.countValidPassports(data("day04/input"), Day04.isValidPart2);
 	}
 }
