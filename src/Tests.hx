@@ -47,4 +47,12 @@ class Tests implements ITest {
 		4 == Day04.countValidPassports(data("day04/example3"), Day04.isValidPart2);
 		140 == Day04.countValidPassports(data("day04/input"), Day04.isValidPart2);
 	}
+
+	function specDay05() {
+		357 == Day05.calculateSeatId("FBFBBFFRLR");
+		567 == Day05.calculateSeatId("BFFFBBFRRR");
+		119 == Day05.calculateSeatId("FFFBBBFRRR");
+		820 == Day05.calculateSeatId("BBFFBBFRLL");
+		978 == Day05.findHighestSeatId(data("day05/input"));
+	}
 }
