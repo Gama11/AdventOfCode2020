@@ -28,6 +28,20 @@ class Day05 {
 	public static function findHighestSeatId(input:String):Int {
 		return input.split("\n").max(calculateSeatId).value;
 	}
+
+	public static function findMySeatId(input:String):Int {
+		final seatIds = input.split("\n").map(calculateSeatId);
+		seatIds.sort(Reflect.compare);
+		var prevId = seatIds.shift();
+		for (id in seatIds) {
+			final expectedId = prevId + 1;
+			if (id != expectedId) {
+				return expectedId;
+			}
+			prevId = id;
+		}
+		throw 'seat id not found';
+	}
 }
 
 private enum abstract Partitioner(String) from String {

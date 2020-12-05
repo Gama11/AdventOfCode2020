@@ -54,5 +54,7 @@ class Tests implements ITest {
 		119 == Day05.calculateSeatId("FFFBBBFRRR");
 		820 == Day05.calculateSeatId("BBFFBBFRLL");
 		978 == Day05.findHighestSeatId(data("day05/input"));
+
+		727 == Day05.findMySeatId(data("day05/input"));
 	}
 }
