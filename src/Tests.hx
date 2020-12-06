@@ -59,7 +59,10 @@ class Tests implements ITest {
 	}
 
 	function specDay06() {
-		11 == Day06.findSumOfYesAnswers(data("day06/example"));
-		6947 == Day06.findSumOfYesAnswers(data("day06/input"));
+		11 == Day06.countQuestionsAnyoneAnsweredWithYes(data("day06/example"));
+		6947 == Day06.countQuestionsAnyoneAnsweredWithYes(data("day06/input"));
+
+		6 == Day06.countQuestionsEveryoneAnsweredWithYes(data("day06/example"));
+		3398 == Day06.countQuestionsEveryoneAnsweredWithYes(data("day06/input"));
 	}
 }
