@@ -156,6 +156,23 @@ class StaticExtensions {
 		}
 	}
 
+	public static function filterDuplicates<T>(array:Array<T>, filter:(a:T, b:T) -> Bool):Array<T> {
+		final unique:Array<T> = [];
+		for (element in array) {
+			var present = false;
+			for (unique in unique)
+				if (filter(unique, element))
+					present = true;
+			if (!present)
+				unique.push(element);
+		}
+		return unique;
+	}
+
+	public static inline function unique<T>(array:Array<T>):Array<T> {
+		return filterDuplicates(array, (e1, e2) -> e1 == e2);
+	}
+
 	public static function size<K:{function hashCode():Int;}, V>(map:HashMap<K, V>):Int {
 		return [for (_ in map) _].length;
 	}

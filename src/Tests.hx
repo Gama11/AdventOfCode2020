@@ -57,4 +57,9 @@ class Tests implements ITest {
 
 		727 == Day05.findMySeatId(data("day05/input"));
 	}
+
+	function specDay06() {
+		11 == Day06.findSumOfYesAnswers(data("day06/example"));
+		6947 == Day06.findSumOfYesAnswers(data("day06/input"));
+	}
 }
