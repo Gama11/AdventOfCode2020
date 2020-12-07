@@ -176,6 +176,11 @@ class StaticExtensions {
 	public static function size<K:{function hashCode():Int;}, V>(map:HashMap<K, V>):Int {
 		return [for (_ in map) _].length;
 	}
+
+	public static function getOrDefault<K, V>(map:Map<K, V>, key:K, defaultValue:V):V {
+		final value = map[key];
+		return if (value == null) defaultValue else value;
+	}
 }
 
 @:forward

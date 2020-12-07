@@ -65,4 +65,9 @@ class Tests implements ITest {
 		6 == Day06.countQuestionsEveryoneAnsweredWithYes(data("day06/example"));
 		3398 == Day06.countQuestionsEveryoneAnsweredWithYes(data("day06/input"));
 	}
+
+	function specDay07() {
+		4 == Day07.countColorsContainingGold(data("day07/example"));
+		252 == Day07.countColorsContainingGold(data("day07/input"));
+	}
 }
