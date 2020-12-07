@@ -7,14 +7,16 @@ class Day07 {
 		for (rule in input.split("\n")) {
 			final parts = ~/( bags contain |, )/g.split(rule);
 			final color = parts.shift();
-			final content = [for (part in parts) {
-				if (!contentPattern.match(part)) {
-					continue;
+			final content = [
+				for (part in parts) {
+					if (!contentPattern.match(part)) {
+						continue;
+					}
+					final amount = contentPattern.int(1);
+					final contentColor = contentPattern.matched(2);
+					contentColor => amount;
 				}
-				final amount = contentPattern.int(1);
-				final contentColor = contentPattern.matched(2);
-				contentColor => amount;
-			}];
+			];
 			rules[color] = content;
 		}
 		return rules;
@@ -39,13 +41,32 @@ class Day07 {
 			final children = rules[color];
 			if (children != null) {
 				for (child in children) {
-					hasShinyGold[child] = true;	
+					hasShinyGold[child] = true;
 					walkChildren(child);
 				}
 			}
 		}
 		walkChildren("shiny gold");
 		return hasShinyGold.count();
+	}
+
+	public static function countBagsInGold(input:String):Int {
+		final rules = parseLuggageRules(input);
+		final cache = new Map<BagColor, Int>();
+		function countChildren(color:BagColor):Int {
+			if (cache.exists(color)) {
+				return cache[color];
+			}
+			final children = rules.getOrDefault(color, []);
+			final result = if (children.count() == 0) {
+				1;
+			} else {
+				1 + [for (color => count in children) countChildren(color) * count].sum();
+			}
+			cache[color] = result;
+			return result;
+		}
+		return countChildren("shiny gold") - 1;
 	}
 }
 

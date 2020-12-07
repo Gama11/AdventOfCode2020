@@ -69,5 +69,9 @@ class Tests implements ITest {
 	function specDay07() {
 		4 == Day07.countColorsContainingGold(data("day07/example"));
 		252 == Day07.countColorsContainingGold(data("day07/input"));
+
+		32 == Day07.countBagsInGold(data("day07/example"));
+		126 == Day07.countBagsInGold(data("day07/example2"));
+		35487 == Day07.countBagsInGold(data("day07/input"));
 	}
 }
