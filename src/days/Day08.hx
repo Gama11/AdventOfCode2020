@@ -1,7 +1,7 @@
 package days;
 
 class Day08 {
-	static function parseProgram(input:String):Program {
+	public static function parseProgram(input:String):Program {
 		return input.split("\n").map(function(line):Instruction {
 			final parts = line.split(" ");
 			return {
@@ -15,32 +15,57 @@ class Day08 {
 		var accumulator = 0;
 		var i = 0;
 		while (i >= 0 && i < program.length && !stop(i)) {
-			final op = program[i].op;
-			final argument = program[i].argument;
-			switch op {
-				case Acc:
-					accumulator += argument;
+			switch program[i] {
+				case {op: Acc, argument: value}:
+					accumulator += value;
 					i++;
 
-				case Jmp:
-					i += argument;
+				case {op: Jmp, argument: offset}:
+					i += offset;
 
-				case Nop:
+				case {op: Nop}:
 					i++;
 			}
 		}
 		return accumulator;
 	}
 
-	public static function findAccumulatorAfterFirstLoop(input:String):Int {
+	public static function runFirstLoop(program:Program):{accumulator:Int, stoppedNormally:Bool} {
 		final executedInstructions = new Map<Int, Bool>();
-		return runProgram(parseProgram(input), function(nextInstructionIndex:Int) {
+		var stoppedNormally = true;
+		final accumulator = runProgram(program, function(nextInstructionIndex:Int) {
 			if (executedInstructions.exists(nextInstructionIndex)) {
+				stoppedNormally = false;
 				return true;
 			}
 			executedInstructions[nextInstructionIndex] = true;
 			return false;
 		});
+		return {
+			accumulator: accumulator,
+			stoppedNormally: stoppedNormally
+		}
+	}
+
+	public static function runRepairedProgram(program:Program):Int {
+		function swap(i:Int) {
+			final instruction = program[i];
+			program[i] = {
+				op: if (instruction.op == Nop) Jmp else Nop,
+				argument: instruction.argument
+			};
+		}
+		for (i in 0...program.length) {
+			if (program[i].op != Acc) {
+				swap(i);
+				final result = runFirstLoop(program);
+				if (result.stoppedNormally) {
+					return result.accumulator;
+				}
+				swap(i);
+			}
+		}
+		throw 'no correct program found';
 	}
 }
 

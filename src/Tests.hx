@@ -76,7 +76,13 @@ class Tests implements ITest {
 	}
 
 	function specDay08() {
-		5 == Day08.findAccumulatorAfterFirstLoop(data("day08/example"));
-		0 == Day08.findAccumulatorAfterFirstLoop(data("day08/input"));
+		final example = Day08.parseProgram(data("day08/example"));
+		final input = Day08.parseProgram(data("day08/input"));
+
+		5 == Day08.runFirstLoop(example).accumulator;
+		1548 == Day08.runFirstLoop(input).accumulator;
+
+		8 == Day08.runRepairedProgram(example);
+		1375 == Day08.runRepairedProgram(input);
 	}
 }
