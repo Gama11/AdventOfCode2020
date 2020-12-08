@@ -13,6 +13,5 @@
 # -cpp export/cpp
 # -cmd export\cpp\Tests-debug.exe
 
-# -java export/java
-# -D jvm
-# -cmd java -jar export/java/Tests-debug.jar
+# --jvm export/test.jar
+# -cmd java -jar export/test.jar

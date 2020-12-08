@@ -38,12 +38,10 @@ class Day07 {
 		final rules = invertRules(parseLuggageRules(input));
 		final hasShinyGold = new Map<BagColor, Bool>();
 		function walkChildren(color:BagColor) {
-			final children = rules[color];
-			if (children != null) {
-				for (child in children) {
-					hasShinyGold[child] = true;
-					walkChildren(child);
-				}
+			final children = rules.getOrDefault(color, []);
+			for (child in children) {
+				hasShinyGold[child] = true;
+				walkChildren(child);
 			}
 		}
 		walkChildren("shiny gold");
@@ -58,11 +56,7 @@ class Day07 {
 				return cache[color];
 			}
 			final children = rules.getOrDefault(color, []);
-			final result = if (children.count() == 0) {
-				1;
-			} else {
-				1 + [for (color => count in children) countChildren(color) * count].sum();
-			}
+			final result = 1 + [for (color => count in children) countChildren(color) * count].sum();
 			cache[color] = result;
 			return result;
 		}

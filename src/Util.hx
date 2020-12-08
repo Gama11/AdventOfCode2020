@@ -87,6 +87,10 @@ class StaticExtensions {
 		return a.fold((a, b) -> a * b, 1);
 	}
 
+	public static function product64(a:Array<Int64>):Int64 {
+		return a.fold((a, b) -> a * b, 1);
+	}
+
 	public static function max<T>(a:Array<T>, f:T->Int) {
 		var maxValue:Null<Int> = null;
 		var list = [];

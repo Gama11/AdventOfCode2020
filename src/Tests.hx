@@ -36,7 +36,7 @@ class Tests implements ITest {
 		187 == Day03.countTreesOnTraversal(data("day03/input"), new Point(3, 1));
 
 		336 == Day03.findTreeCountProduct(data("day03/example"));
-		4723283400 == Day03.findTreeCountProduct(data("day03/input"));
+		Int64.parseString("4723283400") == Day03.findTreeCountProduct(data("day03/input"));
 	}
 
 	function specDay04() {
