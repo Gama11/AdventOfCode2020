@@ -74,4 +74,9 @@ class Tests implements ITest {
 		126 == Day07.countBagsInGold(data("day07/example2"));
 		35487 == Day07.countBagsInGold(data("day07/input"));
 	}
+
+	function specDay08() {
+		5 == Day08.findAccumulatorAfterFirstLoop(data("day08/example"));
+		0 == Day08.findAccumulatorAfterFirstLoop(data("day08/input"));
+	}
 }

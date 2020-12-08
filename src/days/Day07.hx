@@ -64,6 +64,6 @@ class Day07 {
 	}
 }
 
-typedef LuggageRules = Map<BagColor, BagContent>;
-typedef BagContent = Map<BagColor, Int>;
-typedef BagColor = String;
+private typedef LuggageRules = Map<BagColor, BagContent>;
+private typedef BagContent = Map<BagColor, Int>;
+private typedef BagColor = String;
