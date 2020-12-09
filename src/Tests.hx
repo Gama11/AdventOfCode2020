@@ -85,4 +85,9 @@ class Tests implements ITest {
 		8 == Day08.runRepairedProgram(example);
 		1375 == Day08.runRepairedProgram(input);
 	}
+
+	function specDay09() {
+		127 == Day09.findWeakness(data("day09/example"), 5);
+		31161678 == Day09.findWeakness(data("day09/input"), 25);
+	}
 }
