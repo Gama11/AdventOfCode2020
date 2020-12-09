@@ -87,7 +87,13 @@ class Tests implements ITest {
 	}
 
 	function specDay09() {
-		127 == Day09.findWeakness(data("day09/example"), 5);
-		31161678 == Day09.findWeakness(data("day09/input"), 25);
+		final exampleTarget = Day09.findWeaknessPart1(data("day09/example"), 5);
+		final realTarget = Day09.findWeaknessPart1(data("day09/input"), 25);
+
+		127 == exampleTarget;
+		31161678 == realTarget;
+
+		62 == Day09.findWeaknessPart2(data("day09/example"), exampleTarget);
+		5453868 == Day09.findWeaknessPart2(data("day09/input"), realTarget);
 	}
 }
