@@ -98,8 +98,12 @@ class Tests implements ITest {
 	}
 
 	function specDay10() {
-		7 * 5 == Day10.calculateJoltageDifferences(data("day10/example1"));		
-		22 * 10 == Day10.calculateJoltageDifferences(data("day10/example2"));		
-		1984 == Day10.calculateJoltageDifferences(data("day10/input"));		
+		7 * 5 == Day10.calculateDistributionProduct(data("day10/example1"));
+		22 * 10 == Day10.calculateDistributionProduct(data("day10/example2"));
+		1984 == Day10.calculateDistributionProduct(data("day10/input"));
+
+		8 == Day10.calculateDistinctArrangements(data("day10/example1"));
+		19208 == Day10.calculateDistinctArrangements(data("day10/example2"));
+		Int64.parseString("3543369523456") == Day10.calculateDistinctArrangements(data("day10/input"));
 	}
 }

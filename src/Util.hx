@@ -1,4 +1,3 @@
-import haxe.ds.ReadOnlyArray;
 import haxe.ds.HashMap;
 import polygonal.ds.Prioritizable;
 import haxe.Int64;

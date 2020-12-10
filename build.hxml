@@ -11,6 +11,8 @@
 -cmd node export/test.js
 -lib hxnodejs
 
+# --python export/test.py
+
 # -cpp export/cpp
 # -cmd export\cpp\Tests.exe
 
