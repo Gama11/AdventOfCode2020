@@ -185,6 +185,10 @@ class StaticExtensions {
 		final value = map[key];
 		return if (value == null) defaultValue else value;
 	}
+
+	public static inline function last<T>(array:Array<T>):T {
+		return array[array.length - 1];
+	}
 }
 
 @:forward

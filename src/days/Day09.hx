@@ -26,7 +26,7 @@ class Day09 {
 				if (sum == target) {
 					final set = numbers.slice(i, j + 1);
 					set.sort(Reflect.compare);
-					return set[0] + set[set.length - 1];
+					return set[0] + set.last();
 				} else if (sum > target) {
 					break;
 				}

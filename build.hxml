@@ -4,14 +4,18 @@
 -lib utest
 -lib polygonal-ds
 # --interp
--debug
+# -debug
+--dce full
 
 -js export/test.js
 -cmd node export/test.js
 -lib hxnodejs
 
 # -cpp export/cpp
-# -cmd export\cpp\Tests-debug.exe
+# -cmd export\cpp\Tests.exe
 
 # --jvm export/test.jar
 # -cmd java -jar export/test.jar
+
+# -hl export/test.hl
+# -cmd hl export/test.hl

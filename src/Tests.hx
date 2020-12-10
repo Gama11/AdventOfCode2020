@@ -96,4 +96,10 @@ class Tests implements ITest {
 		62 == Day09.findWeaknessPart2(data("day09/example"), exampleTarget);
 		5453868 == Day09.findWeaknessPart2(data("day09/input"), realTarget);
 	}
+
+	function specDay10() {
+		7 * 5 == Day10.calculateJoltageDifferences(data("day10/example1"));		
+		22 * 10 == Day10.calculateJoltageDifferences(data("day10/example2"));		
+		1984 == Day10.calculateJoltageDifferences(data("day10/input"));		
+	}
 }
