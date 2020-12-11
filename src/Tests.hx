@@ -106,4 +106,9 @@ class Tests implements ITest {
 		19208 == Day10.calculateDistinctArrangements(data("day10/example2"));
 		Int64.parseString("3543369523456") == Day10.calculateDistinctArrangements(data("day10/input"));
 	}
+
+	function specDay11() {
+		37 == Day11.countOccupiedSeatsInStableState(data("day11/example"));
+		2468 == Day11.countOccupiedSeatsInStableState(data("day11/input"));
+	}
 }

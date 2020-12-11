@@ -4,7 +4,7 @@ import Util.Point;
 
 class Day03 {
 	public static function countTreesOnTraversal(input:String, slope:Point):Int64 {
-		final grid = Util.parseGrid(input);
+		final grid = Util.parseGrid(input, s -> (cast s : Tile));
 		var position = new Point(0, 0);
 		var trees = 0;
 		while (position.y < grid.height) {
@@ -30,7 +30,7 @@ class Day03 {
 	}
 }
 
-private enum abstract Square(String) from String {
+private enum abstract Tile(String) from String {
 	final Open = ".";
 	final Tree = "#";
 }

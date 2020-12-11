@@ -57,12 +57,12 @@ class Util {
 		return renderPointGrid([for (p in map.keys()) p], p -> render(map[p]), empty);
 	}
 
-	public static function parseGrid(input:String) {
+	public static function parseGrid<T>(input:String, convert:String->T):Grid<T> {
 		var grid = input.split("\n").map(line -> line.split(""));
-		var result = new HashMap();
+		var result = new HashMap<Point, T>();
 		for (y in 0...grid.length) {
 			for (x in 0...grid[y].length) {
-				result[new Point(x, y)] = grid[y][x];
+				result[new Point(x, y)] = convert(grid[y][x]);
 			}
 		}
 		return {
@@ -71,6 +71,12 @@ class Util {
 			height: grid.length
 		};
 	}
+}
+
+typedef Grid<T> = {
+	final map:HashMap<Point, T>;
+	final width:Int;
+	final height:Int;
 }
 
 class StaticExtensions {
