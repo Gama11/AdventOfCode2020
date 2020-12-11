@@ -108,7 +108,10 @@ class Tests implements ITest {
 	}
 
 	function specDay11() {
-		37 == Day11.countOccupiedSeatsInStableState(data("day11/example"));
-		2468 == Day11.countOccupiedSeatsInStableState(data("day11/input"));
+		37 == Day11.countFinalOccupiedSeatsDirectlyAdjacent(data("day11/example"));
+		2468 == Day11.countFinalOccupiedSeatsDirectlyAdjacent(data("day11/input"));
+
+		26 == Day11.countFinalOccupiedSeatsVisible(data("day11/example"));
+		2214 == Day11.countFinalOccupiedSeatsVisible(data("day11/input"));
 	}
 }

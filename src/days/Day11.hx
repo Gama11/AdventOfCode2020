@@ -1,15 +1,22 @@
 package days;
 
+import Util.Grid;
 import Util.Direction;
 import Util.Point;
 import haxe.ds.HashMap;
 
 class Day11 {
-	public static function countOccupiedSeatsInStableState(input:String):Int {
-		final grid = Util.parseGrid(input, s -> (cast s : Tile));
+	static function parse(input:String) {
+		return Util.parseGrid(input, s -> (cast s : Tile));
+	}
+
+	static function countFinalOccupiedSeats(grid:Grid<Tile>, tolerance:Int, look:(pos:Point, dir:Direction) -> Null<Point>):Int {
 		var map = grid.map;
 		function countOccupiedAdjacent(pos:Point):Int {
-			return Direction.all.count(dir -> map[pos + dir] == OccupiedSeat);
+			return Direction.all.count(function(dir) {
+				final seat = look(pos, dir);
+				return if (seat == null) false else map[seat] == OccupiedSeat;
+			});
 		}
 		var anyChanges = true;
 		while (anyChanges) {
@@ -25,7 +32,7 @@ class Day11 {
 						anyChanges = true;
 						OccupiedSeat;
 
-					case OccupiedSeat if (occupiedAdjacent >= 4):
+					case OccupiedSeat if (occupiedAdjacent >= tolerance):
 						anyChanges = true;
 						EmptySeat;
 
@@ -35,6 +42,36 @@ class Day11 {
 			map = nextMap;
 		}
 		return [for (tile in map) tile].count(tile -> tile == OccupiedSeat);
+	}
+
+	public static function countFinalOccupiedSeatsDirectlyAdjacent(input:String):Int {
+		return countFinalOccupiedSeats(parse(input), 4, (pos, dir) -> pos + dir);
+	}
+
+	public static function countFinalOccupiedSeatsVisible(input:String):Int {
+		final grid = parse(input);
+		final visibleSeats = new HashMap<Point, HashMap<Direction, Point>>();
+		for (pos => tile in grid.map) {
+			if (tile == Floor) {
+				continue;
+			}
+			final seatPerDirection = new HashMap<Direction, Point>();
+			for (dir in Direction.all) {
+				var p = pos + dir;
+				while (true) {
+					if (!grid.map.exists(p)) {
+						break;
+					}
+					if (grid.map[p] == EmptySeat) {
+						seatPerDirection[dir] = p;
+						break;
+					}
+					p += dir;
+				}
+			}
+			visibleSeats[pos] = seatPerDirection;
+		}
+		return countFinalOccupiedSeats(grid, 5, (pos, dir) -> visibleSeats[pos][dir]);
 	}
 }
 
