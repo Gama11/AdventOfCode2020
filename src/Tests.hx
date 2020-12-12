@@ -118,5 +118,8 @@ class Tests implements ITest {
 	function specDay12() {
 		25 == Day12.calculateTraveledDistance(data("day12/example"));
 		441 == Day12.calculateTraveledDistance(data("day12/input"));
+
+		286 == Day12.calculateTraveledDistanceWithWaypoint(data("day12/example"));
+		40014 == Day12.calculateTraveledDistanceWithWaypoint(data("day12/input"));
 	}
 }

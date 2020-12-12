@@ -38,6 +38,36 @@ class Day12 {
 		}
 		return pos.distanceTo(new Point(0, 0));
 	}
+
+	public static function calculateTraveledDistanceWithWaypoint(input:String):Int {
+		final instructions = parseInstructions(input);
+		var ship = new Point(0, 0);
+		var waypoint = new Point(10, -1);
+		for (instruction in instructions) {
+			final units = instruction.units;
+			switch instruction.action {
+				case North:
+					waypoint += Direction.Up * units;
+				case South:
+					waypoint += Direction.Down * units;
+				case East:
+					waypoint += Direction.Right * units;
+				case West:
+					waypoint += Direction.Left * units;
+				case Left:
+					for (_ in 0...Std.int(units / 90)) {
+						waypoint = new Point(waypoint.y, -waypoint.x);
+					}
+				case Right:
+					for (_ in 0...Std.int(units / 90)) {
+						waypoint = new Point(-waypoint.y, waypoint.x);
+					}
+				case Forward:
+					ship += waypoint * units;
+			}
+		}
+		return ship.distanceTo(new Point(0, 0));
+	}
 }
 
 private typedef Instruction = {
