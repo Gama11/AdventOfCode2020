@@ -114,4 +114,9 @@ class Tests implements ITest {
 		26 == Day11.countFinalOccupiedSeatsVisible(data("day11/example"));
 		2214 == Day11.countFinalOccupiedSeatsVisible(data("day11/input"));
 	}
+
+	function specDay12() {
+		25 == Day12.calculateTraveledDistance(data("day12/example"));
+		441 == Day12.calculateTraveledDistance(data("day12/input"));
+	}
 }

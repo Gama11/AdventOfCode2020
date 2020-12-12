@@ -312,8 +312,12 @@ abstract Direction(Point) to Point to {function hashCode():Int;} {
 		}
 	}
 
-	@:op(A + B) function add(dir:Direction):Direction {
+	@:op(A + B) inline function add(dir:Direction):Direction {
 		return new Direction(this.x + dir.x, this.y + dir.y);
+	}
+
+	@:op(A * B) inline function scale(n:Int):Direction {
+		return new Direction(this.x * n, this.y * n);
 	}
 }
 
