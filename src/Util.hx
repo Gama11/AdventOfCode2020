@@ -87,6 +87,10 @@ class StaticExtensions {
 	public static function sum(a:Array<Int>):Int {
 		return a.fold((a, b) -> a + b, 0);
 	}
+	
+	public static function sum64(a:Array<Int64>):Int64 {
+		return a.fold((a, b) -> a + b, 0);
+	}
 
 	public static function product(a:Array<Int>):Int {
 		return a.fold((a, b) -> a * b, 1);

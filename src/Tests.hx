@@ -124,7 +124,15 @@ class Tests implements ITest {
 	}
 
 	function specDay13() {
-		59 * 5 == Day13.findBusIdAndWaitTime(data("day13/example"));
+		59 * 5 == Day13.findBusIdAndWaitTime(data("day13/example1"));
 		3882 == Day13.findBusIdAndWaitTime(data("day13/input"));
+
+		1068781 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example1"));
+		3417 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example2"));
+		754018 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example3"));
+		779210 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example4"));
+		1261476 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example5"));
+		1202161486 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example6"));
+		Int64.parseString("867295486378319") == Day13.findTimestampWithConsecutiveDepartures(data("day13/input"));
 	}
 }
