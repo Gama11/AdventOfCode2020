@@ -107,13 +107,13 @@ class Tests implements ITest {
 		Int64.parseString("3543369523456") == Day10.calculateDistinctArrangements(data("day10/input"));
 	}
 
-	function specDay11() {
+	/* function specDay11() {
 		37 == Day11.countFinalOccupiedSeatsDirectlyAdjacent(data("day11/example"));
 		2468 == Day11.countFinalOccupiedSeatsDirectlyAdjacent(data("day11/input"));
 
 		26 == Day11.countFinalOccupiedSeatsVisible(data("day11/example"));
 		2214 == Day11.countFinalOccupiedSeatsVisible(data("day11/input"));
-	}
+	} */
 
 	function specDay12() {
 		25 == Day12.calculateTraveledDistance(data("day12/example"));
@@ -121,5 +121,10 @@ class Tests implements ITest {
 
 		286 == Day12.calculateTraveledDistanceWithWaypoint(data("day12/example"));
 		40014 == Day12.calculateTraveledDistanceWithWaypoint(data("day12/input"));
+	}
+
+	function specDay13() {
+		59 * 5 == Day13.findBusIdAndWaitTime(data("day13/example"));
+		3882 == Day13.findBusIdAndWaitTime(data("day13/input"));
 	}
 }
