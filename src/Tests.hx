@@ -135,4 +135,9 @@ class Tests implements ITest {
 		1202161486 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example6"));
 		Int64.parseString("867295486378319") == Day13.findTimestampWithConsecutiveDepartures(data("day13/input"));
 	}
+
+	function specDay14() {
+		165 == Day14.calculateSumOfMemoryValues(data("day14/example"));
+		Int64.parseString("11884151942312") == Day14.calculateSumOfMemoryValues(data("day14/input"));
+	}
 }

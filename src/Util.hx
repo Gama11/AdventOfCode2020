@@ -293,17 +293,17 @@ abstract Direction(Point) to Point to {function hashCode():Int;} {
 	public static final Down = new Direction(0, 1);
 	public static final Right = new Direction(1, 0);
 
-	public static final horizonals = [Left, Up, Right, Down];
+	public static final horizontals = [Left, Up, Right, Down];
 	public static final diagonals = [Left + Up, Right + Up, Left + Down, Right + Down];
-	public static final all = horizonals.concat(diagonals);
+	public static final all = horizontals.concat(diagonals);
 
 	private inline function new(x:Int, y:Int) {
 		this = new Point(x, y);
 	}
 
 	public function rotate(by:Int):Direction {
-		var i = horizonals.indexOf((cast this : Direction)) + by;
-		return horizonals[Util.mod(i, horizonals.length)];
+		var i = horizontals.indexOf((cast this : Direction)) + by;
+		return horizontals[Util.mod(i, horizontals.length)];
 	}
 
 	public function toString() {
