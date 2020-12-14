@@ -137,7 +137,10 @@ class Tests implements ITest {
 	}
 
 	function specDay14() {
-		165 == Day14.calculateSumOfMemoryValues(data("day14/example"));
-		Int64.parseString("11884151942312") == Day14.calculateSumOfMemoryValues(data("day14/input"));
+		165 == Day14.sumMemoryWithMaskedValues(data("day14/example1"));
+		Int64.parseString("11884151942312") == Day14.sumMemoryWithMaskedValues(data("day14/input"));
+
+		208 == Day14.sumMemoryWithMaskedAddresses(data("day14/example2"));
+		Int64.parseString("2625449018811") == Day14.sumMemoryWithMaskedAddresses(data("day14/input"));
 	}
 }

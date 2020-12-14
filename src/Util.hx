@@ -87,7 +87,7 @@ class StaticExtensions {
 	public static function sum(a:Array<Int>):Int {
 		return a.fold((a, b) -> a + b, 0);
 	}
-	
+
 	public static function sum64(a:Array<Int64>):Int64 {
 		return a.fold((a, b) -> a + b, 0);
 	}
@@ -197,6 +197,18 @@ class StaticExtensions {
 
 	public static inline function last<T>(array:Array<T>):T {
 		return array[array.length - 1];
+	}
+
+	public static inline function clearBit(value:Int64, offset:Int):Int64 {
+		return value & ~((1 : Int64) << offset);
+	}
+
+	public static inline function setBit(value:Int64, offset:Int):Int64 {
+		return value | (1 : Int64) << offset;
+	}
+
+	public static inline function isBitSet(value:Int, offset:Int):Bool {
+		return value & (1 << offset) != 0;
 	}
 }
 
