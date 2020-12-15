@@ -143,4 +143,15 @@ class Tests implements ITest {
 		208 == Day14.sumMemoryWithMaskedAddresses(data("day14/example2"));
 		Int64.parseString("2625449018811") == Day14.sumMemoryWithMaskedAddresses(data("day14/input"));
 	}
+
+	function specDay15() {
+		436 == Day15.find2020thSpokenNumber("0,3,6");
+		1 == Day15.find2020thSpokenNumber("1,3,2");
+		10 == Day15.find2020thSpokenNumber("2,1,3");
+		27 == Day15.find2020thSpokenNumber("1,2,3");
+		78 == Day15.find2020thSpokenNumber("2,3,1");
+		438 == Day15.find2020thSpokenNumber("3,2,1");
+		1836 == Day15.find2020thSpokenNumber("3,1,2");
+		1085 == Day15.find2020thSpokenNumber("1,20,11,6,12,0");
+	}
 }
