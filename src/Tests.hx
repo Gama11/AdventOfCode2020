@@ -145,13 +145,15 @@ class Tests implements ITest {
 	}
 
 	function specDay15() {
-		436 == Day15.find2020thSpokenNumber("0,3,6");
-		1 == Day15.find2020thSpokenNumber("1,3,2");
-		10 == Day15.find2020thSpokenNumber("2,1,3");
-		27 == Day15.find2020thSpokenNumber("1,2,3");
-		78 == Day15.find2020thSpokenNumber("2,3,1");
-		438 == Day15.find2020thSpokenNumber("3,2,1");
-		1836 == Day15.find2020thSpokenNumber("3,1,2");
-		1085 == Day15.find2020thSpokenNumber("1,20,11,6,12,0");
+		436 == Day15.findNthSpokenNumber("0,3,6", 2020);
+		1 == Day15.findNthSpokenNumber("1,3,2", 2020);
+		10 == Day15.findNthSpokenNumber("2,1,3", 2020);
+		27 == Day15.findNthSpokenNumber("1,2,3", 2020);
+		78 == Day15.findNthSpokenNumber("2,3,1", 2020);
+		438 == Day15.findNthSpokenNumber("3,2,1", 2020);
+		1836 == Day15.findNthSpokenNumber("3,1,2", 2020);
+		1085 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 2020);
+
+		10652 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 30000000);
 	}
 }
