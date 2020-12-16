@@ -154,6 +154,11 @@ class Tests implements ITest {
 		1836 == Day15.findNthSpokenNumber("3,1,2", 2020);
 		1085 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 2020);
 
-		10652 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 30000000);
+		// 10652 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 30000000);
+	}
+
+	function specDay16() {
+		71 == Day16.calculateTicketScanningErrorRate(data("day16/example"));
+		27850 == Day16.calculateTicketScanningErrorRate(data("day16/input"));
 	}
 }
