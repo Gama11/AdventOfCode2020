@@ -1,3 +1,3 @@
-# @install: lix --silent download "gh://github.com/Gama11/ds#544c38dffb8d1c2366c13b243afa59e3a3a980bc" into polygonal-ds/2.1.1/github/544c38dffb8d1c2366c13b243afa59e3a3a980bc
--cp ${HAXE_LIBCACHE}/polygonal-ds/2.1.1/github/544c38dffb8d1c2366c13b243afa59e3a3a980bc/src
+# @install: lix --silent download "gh://github.com/Gama11/ds#ed759d78f456e31deef37edd7210a060de10fcc5" into polygonal-ds/2.1.1/github/ed759d78f456e31deef37edd7210a060de10fcc5
+-cp ${HAXE_LIBCACHE}/polygonal-ds/2.1.1/github/ed759d78f456e31deef37edd7210a060de10fcc5/src
 -D polygonal-ds=2.1.1
