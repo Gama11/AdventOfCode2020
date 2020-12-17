@@ -3,11 +3,8 @@ package util;
 import polygonal.ds.Hashable;
 
 @:forward
+@:forward.new
 abstract Point(PointImpl) from PointImpl to Hashable {
-	public inline function new(x, y) {
-		this = new PointImpl(x, y);
-	}
-
 	@:op(A + B) inline function add(point:Point):Point {
 		return new Point(this.x + point.x, this.y + point.y);
 	}

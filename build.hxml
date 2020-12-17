@@ -5,7 +5,6 @@
 -lib polygonal-ds
 # --interp
 # -debug
---dce full
 --macro keep("haxe.Int64")
 
 -js export/test.js

@@ -165,7 +165,10 @@ class Tests implements ITest {
 	}
 
 	function specDay17() {
-		112 == Day17.countActiveCubesAfterBoot(data("day17/example"));
-		384 == Day17.countActiveCubesAfterBoot(data("day17/input"));
+		112 == Day17.countActiveCubesAfterBoot(data("day17/example"), 3);
+		384 == Day17.countActiveCubesAfterBoot(data("day17/input"), 3);
+
+		848 == Day17.countActiveCubesAfterBoot(data("day17/example"), 4);
+		2012 == Day17.countActiveCubesAfterBoot(data("day17/input"), 4);
 	}
 }

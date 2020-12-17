@@ -43,16 +43,6 @@ class Extensions {
 		return {list: list, value: minValue};
 	}
 
-	public static function count<T>(a:Array<T>, f:T->Bool):Int {
-		var count = 0;
-		for (e in a) {
-			if (f(e)) {
-				count++;
-			}
-		}
-		return count;
-	}
-
 	public static function tuples<T>(a:Array<T>):Array<{a:T, b:T}> {
 		var result = [];
 		for (e1 in a) {
@@ -80,6 +70,21 @@ class Extensions {
 			}
 			return list;
 		}
+	}
+
+	public static function equals<T>(a1:Array<T>, a2:Array<T>):Bool {
+		if (a1 == null && a2 == null)
+			return true;
+		if (a1 == null && a2 != null)
+			return false;
+		if (a1 != null && a2 == null)
+			return false;
+		if (a1.length != a2.length)
+			return false;
+		for (i in 0...a1.length)
+			if (a1[i] != a2[i])
+				return false;
+		return true;
 	}
 
 	public static function filterDuplicates<T>(array:Array<T>, filter:(a:T, b:T) -> Bool):Array<T> {

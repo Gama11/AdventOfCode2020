@@ -4,7 +4,7 @@ import polygonal.ds.Hashable;
 import polygonal.ds.HashTable;
 
 @:forward(keys, iterator)
-abstract HashMap<K:Hashable, V>(HashTable<K, V>) {
+abstract HashMap<K:Hashable, V>(HashTable<K, V>) to Iterable<V> {
 	public inline function new() {
 		this = new HashTable(16);
 	}
@@ -14,6 +14,7 @@ abstract HashMap<K:Hashable, V>(HashTable<K, V>) {
 	}
 
 	@:arrayAccess inline function set(key:K, value:V) {
+		this.unset(key);
 		this.set(key, value);
 		if (this.loadFactor > 0.7) {
 			this.rehash(this.slotCount * 2);
