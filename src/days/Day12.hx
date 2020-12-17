@@ -1,8 +1,5 @@
 package days;
 
-import Util.Direction;
-import Util.Point;
-
 class Day12 {
 	static function parseInstructions(input:String):Array<Instruction> {
 		return input.split("\n").map(function(line) {

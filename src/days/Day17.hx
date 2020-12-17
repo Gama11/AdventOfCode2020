@@ -1,8 +1,6 @@
 package days;
 
-import Util.Direction;
 import haxe.ds.HashMap;
-import Util.Point;
 
 class Day17 {
 	public static function countActiveCubesAfterBoot(input:String):Int {

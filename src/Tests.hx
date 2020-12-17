@@ -2,7 +2,6 @@ import days.*;
 import sys.io.File;
 import utest.ITest;
 import utest.UTest;
-import Util;
 
 class Tests implements ITest {
 	static function main() {
@@ -107,13 +106,13 @@ class Tests implements ITest {
 		Int64.parseString("3543369523456") == Day10.calculateDistinctArrangements(data("day10/input"));
 	}
 
-	/* function specDay11() {
+	function specDay11() {
 		37 == Day11.countFinalOccupiedSeatsDirectlyAdjacent(data("day11/example"));
 		2468 == Day11.countFinalOccupiedSeatsDirectlyAdjacent(data("day11/input"));
 
 		26 == Day11.countFinalOccupiedSeatsVisible(data("day11/example"));
 		2214 == Day11.countFinalOccupiedSeatsVisible(data("day11/input"));
-	} */
+	}
 
 	function specDay12() {
 		25 == Day12.calculateTraveledDistance(data("day12/example"));

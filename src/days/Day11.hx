@@ -1,8 +1,6 @@
 package days;
 
-import Util.Grid;
-import Util.Direction;
-import Util.Point;
+import util.Util.Grid;
 import haxe.ds.HashMap;
 
 class Day11 {

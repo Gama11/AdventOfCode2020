@@ -1,5 +1,7 @@
+package util;
+
+import polygonal.ds.Prioritizable;
 import polygonal.ds.PriorityQueue;
-import Util.PrioritizedItem;
 
 class AStar {
 	public static function search<T:State>(starts:Array<T>, isGoal:T->Bool, score:T->Int, getMoves:T->Array<Move<T>>):Null<Result<T>> {
@@ -63,4 +65,15 @@ typedef Result<T> = {
 private typedef Score = {
 	var g:Int;
 	var f:Int;
+}
+
+class PrioritizedItem<T> implements Prioritizable {
+	public final item:T;
+	public var priority(default, null):Float = 0;
+	public var position(default, null):Int;
+
+	public function new(item:T, priority:Float) {
+		this.item = item;
+		this.priority = priority;
+	}
 }

@@ -1,7 +1,5 @@
 package days;
 
-import Util.Point;
-
 class Day03 {
 	public static function countTreesOnTraversal(input:String, slope:Point):Int64 {
 		final grid = Util.parseGrid(input, s -> (cast s : Tile));
