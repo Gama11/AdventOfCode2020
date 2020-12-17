@@ -24,7 +24,7 @@ class Day03 {
 			new Point(5, 1),
 			new Point(7, 1),
 			new Point(1, 2)
-		].map(countTreesOnTraversal.bind(input)).product64();
+		].map(countTreesOnTraversal.bind(input)).product();
 	}
 }
 

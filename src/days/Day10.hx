@@ -37,6 +37,6 @@ class Day10 {
 			case 3: 4;
 			case 4: 7;
 			case _: throw 'unsupported';
-		} : Int64)).product64();
+		} : Int64)).product();
 	}
 }

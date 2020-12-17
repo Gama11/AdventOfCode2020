@@ -39,7 +39,7 @@ class Day14 {
 					memory[address] = value;
 			}
 		}
-		return memory.array().sum64();
+		return memory.array().sum();
 	}
 
 	public static function sumMemoryWithMaskedAddresses(input:String):Int64 {
@@ -76,7 +76,7 @@ class Day14 {
 					}
 			}
 		}
-		return memory.array().sum64();
+		return memory.array().sum();
 	}
 }
 
