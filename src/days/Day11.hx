@@ -1,7 +1,6 @@
 package days;
 
 import util.Util.Grid;
-import haxe.ds.HashMap;
 
 class Day11 {
 	static function parse(input:String) {

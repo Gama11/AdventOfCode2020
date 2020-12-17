@@ -3,7 +3,7 @@ package util;
 import polygonal.ds.Hashable;
 
 @:forward
-abstract Point(PointImpl) from PointImpl to {function hashCode():Int;} {
+abstract Point(PointImpl) from PointImpl to Hashable {
 	public inline function new(x, y) {
 		this = new PointImpl(x, y);
 	}
@@ -42,11 +42,7 @@ private class PointImpl implements Hashable {
 	public inline function new(x, y) {
 		this.x = x;
 		this.y = y;
-		key = hashCode();
-	}
-
-	public function hashCode():Int {
-		return x + 10000 * y;
+		key = x + 10000 * y;
 	}
 
 	public function distanceTo(point:Point):Int {

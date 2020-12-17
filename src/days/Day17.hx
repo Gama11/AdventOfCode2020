@@ -1,7 +1,5 @@
 package days;
 
-import haxe.ds.HashMap;
-
 class Day17 {
 	public static function countActiveCubesAfterBoot(input:String):Int {
 		final grid = Util.parseGrid(input, t -> (cast t : CubeState));

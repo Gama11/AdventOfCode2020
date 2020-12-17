@@ -1,7 +1,5 @@
 package util;
 
-import haxe.ds.HashMap;
-
 class Util {
 	public static function mod(a:Int, b:Int) {
 		var r = a % b;

@@ -1,7 +1,9 @@
 package util;
 
+import polygonal.ds.Hashable;
+
 @:forward(x, y)
-abstract Direction(Point) to Point to {function hashCode():Int;} {
+abstract Direction(Point) to Point to Hashable {
 	public static final Left = new Direction(-1, 0);
 	public static final Up = new Direction(0, -1);
 	public static final Down = new Direction(0, 1);
