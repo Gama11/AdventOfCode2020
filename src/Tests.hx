@@ -161,7 +161,7 @@ class Tests implements ITest {
 		27850 == Day16.calculateTicketScanningErrorRate(data("day16/input"));
 
 		1 == Day16.calculateDepartureProduct(data("day16/example2"));
-		491924517533 == Day16.calculateDepartureProduct(data("day16/input"));
+		Int64.parseString("491924517533") == Day16.calculateDepartureProduct(data("day16/input"));
 	}
 
 	function specDay17() {

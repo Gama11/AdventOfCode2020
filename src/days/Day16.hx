@@ -41,7 +41,7 @@ class Day16 {
 		return notes.nearbyTickets.flatten().filter(violatesAllRules.bind(notes.rules)).sum();
 	}
 
-	public static function calculateDepartureProduct(input:String):Int {
+	public static function calculateDepartureProduct(input:String):Int64 {
 		final notes = parse(input);
 		function isValid(ticket:Ticket):Bool {
 			return ticket.foreach(value -> !violatesAllRules(notes.rules, value));
@@ -78,7 +78,7 @@ class Day16 {
 		return [
 			for (assignedIndex => field in assignedFields) {
 				if (field.startsWith("departure ")) {
-					notes.ownTicket[assignedIndex];
+					(notes.ownTicket[assignedIndex] : Int64);
 				}
 			}
 		].product();
