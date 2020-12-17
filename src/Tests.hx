@@ -164,4 +164,9 @@ class Tests implements ITest {
 		1 == Day16.calculateDepartureProduct(data("day16/example2"));
 		491924517533 == Day16.calculateDepartureProduct(data("day16/input"));
 	}
+
+	function specDay17() {
+		112 == Day17.countActiveCubesAfterBoot(data("day17/example"));
+		384 == Day17.countActiveCubesAfterBoot(data("day17/input"));
+	}
 }
