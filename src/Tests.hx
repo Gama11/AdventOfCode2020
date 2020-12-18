@@ -2,6 +2,7 @@ import days.*;
 import sys.io.File;
 import utest.ITest;
 import utest.UTest;
+import haxe.Int64.parseString as int64;
 
 class Tests implements ITest {
 	static function main() {
@@ -35,7 +36,7 @@ class Tests implements ITest {
 		187 == Day03.countTreesOnTraversal(data("day03/input"), new Point(3, 1));
 
 		336 == Day03.findTreeCountProduct(data("day03/example"));
-		Int64.parseString("4723283400") == Day03.findTreeCountProduct(data("day03/input"));
+		int64("4723283400") == Day03.findTreeCountProduct(data("day03/input"));
 	}
 
 	function specDay04() {
@@ -103,7 +104,7 @@ class Tests implements ITest {
 
 		8 == Day10.calculateDistinctArrangements(data("day10/example1"));
 		19208 == Day10.calculateDistinctArrangements(data("day10/example2"));
-		Int64.parseString("3543369523456") == Day10.calculateDistinctArrangements(data("day10/input"));
+		int64("3543369523456") == Day10.calculateDistinctArrangements(data("day10/input"));
 	}
 
 	function specDay11() {
@@ -132,15 +133,15 @@ class Tests implements ITest {
 		779210 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example4"));
 		1261476 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example5"));
 		1202161486 == Day13.findTimestampWithConsecutiveDepartures(data("day13/example6"));
-		Int64.parseString("867295486378319") == Day13.findTimestampWithConsecutiveDepartures(data("day13/input"));
+		int64("867295486378319") == Day13.findTimestampWithConsecutiveDepartures(data("day13/input"));
 	}
 
 	function specDay14() {
 		165 == Day14.sumMemoryWithMaskedValues(data("day14/example1"));
-		Int64.parseString("11884151942312") == Day14.sumMemoryWithMaskedValues(data("day14/input"));
+		int64("11884151942312") == Day14.sumMemoryWithMaskedValues(data("day14/input"));
 
 		208 == Day14.sumMemoryWithMaskedAddresses(data("day14/example2"));
-		Int64.parseString("2625449018811") == Day14.sumMemoryWithMaskedAddresses(data("day14/input"));
+		int64("2625449018811") == Day14.sumMemoryWithMaskedAddresses(data("day14/input"));
 	}
 
 	function specDay15() {
@@ -161,7 +162,7 @@ class Tests implements ITest {
 		27850 == Day16.calculateTicketScanningErrorRate(data("day16/input"));
 
 		1 == Day16.calculateDepartureProduct(data("day16/example2"));
-		Int64.parseString("491924517533") == Day16.calculateDepartureProduct(data("day16/input"));
+		int64("491924517533") == Day16.calculateDepartureProduct(data("day16/input"));
 	}
 
 	function specDay17() {
@@ -170,5 +171,23 @@ class Tests implements ITest {
 
 		848 == Day17.countActiveCubesAfterBoot(data("day17/example"), 4);
 		2012 == Day17.countActiveCubesAfterBoot(data("day17/input"), 4);
+	}
+
+	function specDay18() {
+		71 == Day18.calculateSumOfExpressions("example1", false);
+		51 == Day18.calculateSumOfExpressions("example2", false);
+		26 == Day18.calculateSumOfExpressions("example3", false);
+		437 == Day18.calculateSumOfExpressions("example4", false);
+		12240 == Day18.calculateSumOfExpressions("example5", false);
+		13632 == Day18.calculateSumOfExpressions("example6", false);
+		int64("14208061823964") == Day18.calculateSumOfExpressions("input", false);
+
+		231 == Day18.calculateSumOfExpressions("example1", true);
+		51 == Day18.calculateSumOfExpressions("example2", true);
+		46 == Day18.calculateSumOfExpressions("example3", true);
+		1445 == Day18.calculateSumOfExpressions("example4", true);
+		669060 == Day18.calculateSumOfExpressions("example5", true);
+		23340 == Day18.calculateSumOfExpressions("example6", true);
+		int64("320536571743074") == Day18.calculateSumOfExpressions("input", true);
 	}
 }
