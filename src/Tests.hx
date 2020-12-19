@@ -195,5 +195,9 @@ class Tests implements ITest {
 		2 == Day19.countMatchingMessages(data("day19/example1"));
 		2 == Day19.countMatchingMessages(data("day19/example2"));
 		115 == Day19.countMatchingMessages(data("day19/input"));
+
+		3 == Day19.countMatchingMessages(data("day19/example3"));
+		12 == Day19.countMatchingMessagesWithLoops(data("day19/example3"));
+		237 == Day19.countMatchingMessagesWithLoops(data("day19/input"));
 	}
 }

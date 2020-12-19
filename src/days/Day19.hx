@@ -27,7 +27,7 @@ class Day19 {
 		}
 	}
 
-	static function compileRegex(rules:Array<Rule>):EReg {
+	static function compileRegex(rules:Array<Rule>, startIndex:Int):String {
 		function loop(index:RuleIndex):String {
 			return switch rules[index] {
 				case All(list): list.map(loop).join("");
@@ -35,13 +35,40 @@ class Day19 {
 				case Character(c): c;
 			}
 		}
-		return new EReg("^" + loop(0) + "$", "");
+		return loop(startIndex);
 	}
 
 	public static function countMatchingMessages(input:String):Int {
 		final input = parse(input);
-		final regex = compileRegex(input.rules);
+		final regex = new EReg("^" + compileRegex(input.rules, 0) + "$", "");
 		return input.messages.count(message -> regex.match(message));
+	}
+
+	public static function countMatchingMessagesWithLoops(input:String):Int {
+		final input = parse(input);
+		final regex42 = new EReg("^" + compileRegex(input.rules, 42), "");
+		final regex31 = new EReg(compileRegex(input.rules, 31) + "$", "");
+		function match(message:String) {
+			var matches42 = 0;
+			var matches31 = 0;
+			while (true) {
+				final match42 = regex42.match(message);
+				if (match42) {
+					matches42++;
+					message = message.substr(regex42.matched(0).length);
+				}
+				final match31 = regex31.match(message);
+				if (match31) {
+					matches31++;
+					message = message.substr(0, message.length - regex31.matched(0).length);
+				}
+				if (!match42 && !match31) {
+					break;
+				}
+			}
+			return message == "" && matches42 >= 2 && matches31 >= 1 && matches42 - matches31 >= 1;
+		}
+		return input.messages.count(message -> match(message));
 	}
 }
 
