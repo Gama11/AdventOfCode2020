@@ -190,4 +190,10 @@ class Tests implements ITest {
 		23340 == Day18.calculateSumOfExpressions("example6", true);
 		int64("320536571743074") == Day18.calculateSumOfExpressions("input", true);
 	}
+
+	function specDay19() {
+		2 == Day19.countMatchingMessages(data("day19/example1"));
+		2 == Day19.countMatchingMessages(data("day19/example2"));
+		115 == Day19.countMatchingMessages(data("day19/input"));
+	}
 }
