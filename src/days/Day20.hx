@@ -1,11 +1,13 @@
 package days;
 
+import util.Util.Grid;
 import polygonal.ds.Hashable;
 
-private final MaxIndex = 9;
+private inline final TileSize = 10;
+private inline final MaxIndex = TileSize - 1;
 
 class Day20 {
-	static function parse(input:String):Map<TileId, Tile> {
+	static function parsePuzzle(input:String):Puzzle {
 		final tiles = input.split("\n\n");
 		final idPattern = ~/Tile (\d+):\n/;
 		return [
@@ -13,21 +15,50 @@ class Day20 {
 				idPattern.match(tile);
 				final id = new TileId(idPattern.int(1));
 				final grid = Util.parseGrid(tile.substr(idPattern.matched(0).length), s -> s);
-				id => grid.map;
+				id => grid;
 			}
 		];
 	}
 
-	static function readPixel(tile:TransformedTile, x:Int, y:Int):String {
-		var pos = new Point(x, y);
-		for (transformation in tile.transformations) {
-			pos = transformation.apply(pos);
+	static function parseMonster(input:String):Monster {
+		final image = Util.parseGrid(input, s -> s).map;
+		final monster = new Monster();
+		for (pos => pixel in image) {
+			if (pixel == "#") {
+				monster[pos] = true;
+			}
 		}
-		return tile.tile[pos];
+		return monster;
+	}
+
+	static function transformPoint(tile:TransformedTile, pos:Point):Point {
+		for (transformation in tile.transformations) {
+			pos = switch transformation {
+				case FlipX: new Point(tile.tile.width - 1 - pos.x, pos.y);
+				case FlipY: new Point(pos.x, tile.tile.height - 1 - pos.y);
+				case Rotate: new Point(pos.y, pos.x);
+			}
+		}
+		return pos;
+	}
+
+	static function transformTile(tile:TransformedTile):Tile {
+		final transformedTile = new HashMap();
+		for (pos in tile.tile.map.keys()) {
+			transformedTile[pos] = tile.tile.map[transformPoint(tile, pos)];
+		}
+		return {
+			width: tile.tile.width,
+			height: tile.tile.height,
+			map: transformedTile
+		};
 	}
 
 	static function fits(a:TransformedTile, b:TransformedTile, edge:Edge):Bool {
-		for (i in 0...MaxIndex + 1) {
+		function readPixel(tile:TransformedTile, x:Int, y:Int) {
+			return tile.tile.map[transformPoint(tile, new Point(x, y))];
+		}
+		for (i in 0...TileSize) {
 			final match = switch edge {
 				case Top:
 					readPixel(a, i, 0) == readPixel(b, i, MaxIndex);
@@ -45,50 +76,36 @@ class Day20 {
 		return true;
 	}
 
-	public static function solveJigsaw(input:String):Int64 {
-		final tiles = parse(input);
-		final startingId = tiles.keys().next();
-		final startingTile = {tile: tiles[startingId], transformations: []};
-		final neighbors = new Map<TileId, Array<TileId>>();
-		final assigned = new HashMap<TileEdge, Bool>();
+	static function solvePuzzle(puzzle:Puzzle):Solution {
+		final startingId = puzzle.keys().next();
+		final startingTile = {tile: puzzle[startingId], transformations: []};
+		final connections = [for (tileId in puzzle.keys()) tileId => new Map<Edge, TileId>()];
 		final lockedTransformations = new Map<TileId, Array<Transformation>>();
 		lockedTransformations[startingId] = [];
-		final possibleTransformations = [
-			[],
-			[FlipX],
-			[FlipY],
-			[Rotate],
-			[FlipX, FlipY],
-			[FlipX, Rotate],
-			[FlipY, Rotate],
-			[FlipX, FlipY, Rotate],
-		];
-		function addNeighbor(tileId:TileId, neighborId:TileId) {
-			final tileNeighbors = neighbors.getOrDefault(tileId, []);
-			tileNeighbors.push(neighborId);
-			neighbors[tileId] = tileNeighbors;
+		function connect(tileId:TileId, edge:Edge, neighborId:TileId) {
+			final tileNeighbors = connections.getOrDefault(tileId, []);
+			tileNeighbors[edge] = neighborId;
+			connections[tileId] = tileNeighbors;
 		}
 		function solve(tileId:TileId, tile:TransformedTile) {
 			for (edge in Edge.all) {
 				final oppositeEdge = edge.opposite();
-				for (neighborId => neighborTile in tiles) {
-					if (assigned.exists(new TileEdge(tileId, edge))) {
+				for (neighborId => neighborTile in puzzle) {
+					if (connections[tileId][edge] != null) {
 						break;
 					}
-					if (neighborId == tileId || assigned.exists(new TileEdge(neighborId, oppositeEdge))) {
+					if (neighborId == tileId || connections[neighborId][oppositeEdge] != null) {
 						continue;
 					}
-					var transformationsToCheck = possibleTransformations;
+					var transformationsToCheck = Transformation.combinations;
 					if (lockedTransformations.exists(neighborId)) {
 						transformationsToCheck = [lockedTransformations[neighborId]];
 					}
 					for (transformations in transformationsToCheck) {
 						final transformedNeighbor = {tile: neighborTile, transformations: transformations};
 						if (fits(tile, transformedNeighbor, edge)) {
-							addNeighbor(tileId, neighborId);
-							addNeighbor(neighborId, tileId);
-							assigned[new TileEdge(tileId, edge)] = true;
-							assigned[new TileEdge(neighborId, oppositeEdge)] = true;
+							connect(tileId, edge, neighborId);
+							connect(neighborId, oppositeEdge, tileId);
 							lockedTransformations[neighborId] = transformations;
 							solve(neighborId, transformedNeighbor);
 						}
@@ -97,17 +114,105 @@ class Day20 {
 			}
 		}
 		solve(startingId, startingTile);
+		return {
+			connections: connections,
+			transformations: lockedTransformations
+		}
+	}
+
+	public static function calculateCornerProduct(input:String):Int64 {
+		final solution = solvePuzzle(parsePuzzle(input));
 		return [
-			for (tileId => tileNeighbors in neighbors) {
-				if (tileNeighbors.length == 2) {
+			for (tileId => edges in solution.connections) {
+				if (edges.count() == 2) {
 					(tileId.toInt() : Int64);
 				}
 			}
 		].product();
 	}
+
+	static function constructImage(puzzle:Puzzle, solution:Solution):Tile {
+		var rowId = puzzle.keys().iterable().find(function(tileId) {
+			final edges = solution.connections[tileId];
+			return edges.exists(Right) && edges.exists(Bottom) && !edges.exists(Left) && !edges.exists(Top);
+		});
+		var columnId = rowId;
+		var tileOffset = new Point(0, 0);
+		var edgeSize = new Point(1, 1);
+		var gapSize = new Point(0, 0);
+		var image = new HashMap();
+		while (columnId != null) {
+			final tile = transformTile({
+				tile: puzzle[columnId],
+				transformations: solution.transformations[columnId]
+			});
+			for (pos => pixel in tile.map) {
+				if (pos.x >= edgeSize.x && pos.y >= edgeSize.y && pos.x < TileSize - edgeSize.x && pos.y < TileSize - edgeSize.y) {
+					image[pos - edgeSize + tileOffset] = pixel;
+				}
+			}
+			final rightId = solution.connections[columnId][Right];
+			if (rightId != null) {
+				columnId = rightId;
+				tileOffset += new Point(TileSize - edgeSize.x * 2 + gapSize.x, 0);
+			} else {
+				final bottomId = solution.connections[rowId][Bottom];
+				rowId = bottomId;
+				columnId = bottomId;
+				tileOffset = new Point(0, tileOffset.y + TileSize - edgeSize.y * 2 + gapSize.y);
+			}
+		}
+		final bounds = Util.findBounds(image.keys().iterable());
+		return {
+			width: bounds.max.x,
+			height: bounds.max.y,
+			map: image
+		};
+	}
+
+	static function countMonsterPixels(image:Tile, monster:Monster):Int {
+		final monsterPixels = new HashMap<Point, Bool>();
+		for (pos in image.map.keys()) {
+			final isMonster = monster.keys().iterable().foreach(function(offset) {
+				final offsetPos = pos + offset;
+				return !monsterPixels.exists(offsetPos) && image.map[offsetPos] == "#";
+			});
+			if (isMonster) {
+				for (offset in monster.keys()) {
+					monsterPixels[pos + offset] = true;
+				}
+			}
+		}
+		return monsterPixels.count();
+	}
+
+	public static function calculateWaterRoughness(puzzle:String, monster:String):Int {
+		final puzzle = parsePuzzle(puzzle);
+		final solution = solvePuzzle(puzzle);
+		final image = constructImage(puzzle, solution);
+		final monster = parseMonster(monster);
+		final pixels = image.map.count(pixel -> pixel == "#");
+		for (transformations in Transformation.combinations) {
+			final transformedImage = transformTile({tile: image, transformations: transformations});
+			final monsterPixels = countMonsterPixels(transformedImage, monster);
+			if (monsterPixels > 0) {
+				return pixels - monsterPixels;
+			}
+		}
+		throw 'no monsters found';
+	}
 }
 
-private abstract TileId(Int) {
+private typedef Puzzle = Map<TileId, Tile>;
+
+private typedef Solution = {
+	final connections:Map<TileId, Map<Edge, TileId>>;
+	final transformations:Map<TileId, Array<Transformation>>;
+}
+
+private typedef Monster = HashMap<Point, Bool>;
+
+private abstract TileId(Int) to Int {
 	public function new(id) {
 		this = id;
 	}
@@ -117,7 +222,7 @@ private abstract TileId(Int) {
 	}
 }
 
-private typedef Tile = HashMap<Point, String>;
+private typedef Tile = Grid<String>;
 
 private typedef TransformedTile = {
 	var tile:Tile;
@@ -125,20 +230,22 @@ private typedef TransformedTile = {
 }
 
 private enum abstract Transformation(Int) {
+	public static final combinations = [
+		[],
+		[FlipX],
+		[FlipY],
+		[Rotate],
+		[FlipX, FlipY],
+		[FlipX, Rotate],
+		[FlipY, Rotate],
+		[FlipX, FlipY, Rotate],
+	];
 	final FlipX;
 	final FlipY;
 	final Rotate;
-
-	public function apply(pos:Point):Point {
-		return switch (cast this : Transformation) {
-			case FlipX: new Point(MaxIndex - pos.x, pos.y);
-			case FlipY: new Point(pos.x, MaxIndex - pos.y);
-			case Rotate: new Point(pos.y, pos.x);
-		}
-	}
 }
 
-private enum abstract Edge(Int) {
+private enum abstract Edge(Int) to Int {
 	public static final all = [Top, Bottom, Left, Right];
 	final Top;
 	final Bottom;

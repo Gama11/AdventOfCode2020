@@ -20,7 +20,7 @@ class Util {
 		return x & 0x0000003F;
 	}
 
-	public static function findBounds(points:Array<Point>) {
+	public static function findBounds(points:Iterable<Point>) {
 		final n = 9999999;
 		var maxX = -n;
 		var maxY = -n;

@@ -116,4 +116,8 @@ class Extensions {
 	public static inline function isBitSet(value:Int, offset:Int):Bool {
 		return value & (1 << offset) != 0;
 	}
+
+	public static inline function iterable<V>(iterator:Iterator<V>):Iterable<V> {
+		return {iterator: () -> iterator};
+	}
 }

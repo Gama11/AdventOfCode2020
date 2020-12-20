@@ -202,7 +202,10 @@ class Tests implements ITest {
 	}
 
 	function specDay20() {
-		int64("20899048083289") == Day20.solveJigsaw(data("day20/example"));
-		int64("51214443014783") == Day20.solveJigsaw(data("day20/input"));
+		int64("20899048083289") == Day20.calculateCornerProduct(data("day20/example"));
+		int64("51214443014783") == Day20.calculateCornerProduct(data("day20/input"));
+
+		273 == Day20.calculateWaterRoughness(data("day20/example"), data("day20/monster"));
+		2065 == Day20.calculateWaterRoughness(data("day20/input"), data("day20/monster"));
 	}
 }
