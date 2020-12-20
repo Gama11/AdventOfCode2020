@@ -200,4 +200,9 @@ class Tests implements ITest {
 		12 == Day19.countMatchingMessagesWithLoops(data("day19/example3"));
 		237 == Day19.countMatchingMessagesWithLoops(data("day19/input"));
 	}
+
+	function specDay20() {
+		int64("20899048083289") == Day20.solveJigsaw(data("day20/example"));
+		int64("51214443014783") == Day20.solveJigsaw(data("day20/input"));
+	}
 }
