@@ -1,8 +1,5 @@
 package days;
 
-import util.Util.Grid;
-import polygonal.ds.Hashable;
-
 private inline final TileSize = 10;
 private inline final MaxIndex = TileSize - 1;
 
@@ -15,7 +12,7 @@ class Day20 {
 				idPattern.match(tile);
 				final id = new TileId(idPattern.int(1));
 				final grid = Util.parseGrid(tile.substr(idPattern.matched(0).length), s -> s);
-				id => grid;
+				id => new Tile(grid.width, grid.map, []);
 			}
 		];
 	}
@@ -31,54 +28,9 @@ class Day20 {
 		return monster;
 	}
 
-	static function transformPoint(tile:TransformedTile, pos:Point):Point {
-		for (transformation in tile.transformations) {
-			pos = switch transformation {
-				case FlipX: new Point(tile.tile.width - 1 - pos.x, pos.y);
-				case FlipY: new Point(pos.x, tile.tile.height - 1 - pos.y);
-				case Rotate: new Point(pos.y, pos.x);
-			}
-		}
-		return pos;
-	}
-
-	static function transformTile(tile:TransformedTile):Tile {
-		final transformedTile = new HashMap();
-		for (pos in tile.tile.map.keys()) {
-			transformedTile[pos] = tile.tile.map[transformPoint(tile, pos)];
-		}
-		return {
-			width: tile.tile.width,
-			height: tile.tile.height,
-			map: transformedTile
-		};
-	}
-
-	static function fits(a:TransformedTile, b:TransformedTile, edge:Edge):Bool {
-		function readPixel(tile:TransformedTile, x:Int, y:Int) {
-			return tile.tile.map[transformPoint(tile, new Point(x, y))];
-		}
-		for (i in 0...TileSize) {
-			final match = switch edge {
-				case Top:
-					readPixel(a, i, 0) == readPixel(b, i, MaxIndex);
-				case Bottom:
-					readPixel(a, i, MaxIndex) == readPixel(b, i, 0);
-				case Left:
-					readPixel(a, 0, i) == readPixel(b, MaxIndex, i);
-				case Right:
-					readPixel(a, MaxIndex, i) == readPixel(b, 0, i);
-			}
-			if (!match) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	static function solvePuzzle(puzzle:Puzzle):Solution {
 		final startingId = puzzle.keys().next();
-		final startingTile = {tile: puzzle[startingId], transformations: []};
+		final startingTile = puzzle[startingId];
 		final connections = [for (tileId in puzzle.keys()) tileId => new Map<Edge, TileId>()];
 		final lockedTransformations = new Map<TileId, Array<Transformation>>();
 		lockedTransformations[startingId] = [];
@@ -87,7 +39,7 @@ class Day20 {
 			tileNeighbors[edge] = neighborId;
 			connections[tileId] = tileNeighbors;
 		}
-		function solve(tileId:TileId, tile:TransformedTile) {
+		function solve(tileId:TileId, tile:Tile) {
 			for (edge in Edge.all) {
 				final oppositeEdge = edge.opposite();
 				for (neighborId => neighborTile in puzzle) {
@@ -102,8 +54,8 @@ class Day20 {
 						transformationsToCheck = [lockedTransformations[neighborId]];
 					}
 					for (transformations in transformationsToCheck) {
-						final transformedNeighbor = {tile: neighborTile, transformations: transformations};
-						if (fits(tile, transformedNeighbor, edge)) {
+						final transformedNeighbor = neighborTile.withTransformations(transformations);
+						if (tile.fits(transformedNeighbor, edge)) {
 							connect(tileId, edge, neighborId);
 							connect(neighborId, oppositeEdge, tileId);
 							lockedTransformations[neighborId] = transformations;
@@ -142,13 +94,10 @@ class Day20 {
 		var gapSize = new Point(0, 0);
 		var image = new HashMap();
 		while (columnId != null) {
-			final tile = transformTile({
-				tile: puzzle[columnId],
-				transformations: solution.transformations[columnId]
-			});
-			for (pos => pixel in tile.map) {
+			final tile = puzzle[columnId].withTransformations(solution.transformations[columnId]);
+			for (pos in tile.pixels.keys()) {
 				if (pos.x >= edgeSize.x && pos.y >= edgeSize.y && pos.x < TileSize - edgeSize.x && pos.y < TileSize - edgeSize.y) {
-					image[pos - edgeSize + tileOffset] = pixel;
+					image[pos - edgeSize + tileOffset] = tile.readPixel(pos);
 				}
 			}
 			final rightId = solution.connections[columnId][Right];
@@ -163,19 +112,15 @@ class Day20 {
 			}
 		}
 		final bounds = Util.findBounds(image.keys().iterable());
-		return {
-			width: bounds.max.x,
-			height: bounds.max.y,
-			map: image
-		};
+		return new Tile(bounds.max.x + 1, image, []);
 	}
 
 	static function countMonsterPixels(image:Tile, monster:Monster):Int {
 		final monsterPixels = new HashMap<Point, Bool>();
-		for (pos in image.map.keys()) {
+		for (pos in image.pixels.keys()) {
 			final isMonster = monster.keys().iterable().foreach(function(offset) {
 				final offsetPos = pos + offset;
-				return !monsterPixels.exists(offsetPos) && image.map[offsetPos] == "#";
+				return !monsterPixels.exists(offsetPos) && image.readPixel(offsetPos) == "#";
 			});
 			if (isMonster) {
 				for (offset in monster.keys()) {
@@ -191,15 +136,69 @@ class Day20 {
 		final solution = solvePuzzle(puzzle);
 		final image = constructImage(puzzle, solution);
 		final monster = parseMonster(monster);
-		final pixels = image.map.count(pixel -> pixel == "#");
+		final pixels = image.pixels.count(pixel -> pixel == "#");
 		for (transformations in Transformation.combinations) {
-			final transformedImage = transformTile({tile: image, transformations: transformations});
+			final transformedImage = image.withTransformations(transformations);
 			final monsterPixels = countMonsterPixels(transformedImage, monster);
 			if (monsterPixels > 0) {
 				return pixels - monsterPixels;
 			}
 		}
 		throw 'no monsters found';
+	}
+}
+
+class Tile {
+	final size:Int;
+	public final pixels:HashMap<Point, String>;
+	final transformations:Array<Transformation>;
+
+	public function new(size, pixels, transformations) {
+		this.size = size;
+		this.pixels = pixels;
+		this.transformations = transformations;
+	}
+
+	public function withTransformations(transformations:Array<Transformation>) {
+		return new Tile(size, pixels, transformations);
+	}
+
+	public function readPixel(pos:Point):String {
+		return pixels[transformPoint(pos)];
+	}
+
+	public inline function readPixelXY(x:Int, y:Int):String {
+		return readPixel(new Point(x, y));
+	}
+
+	function transformPoint(pos:Point):Point {
+		for (transformation in transformations) {
+			pos = switch transformation {
+				case FlipX: new Point(size - 1 - pos.x, pos.y);
+				case FlipY: new Point(pos.x, size - 1 - pos.y);
+				case Rotate: new Point(pos.y, pos.x);
+			}
+		}
+		return pos;
+	}
+
+	public function fits(tile:Tile, edge:Edge):Bool {
+		for (i in 0...TileSize) {
+			final match = switch edge {
+				case Top:
+					readPixelXY(i, 0) == tile.readPixelXY(i, MaxIndex);
+				case Bottom:
+					readPixelXY(i, MaxIndex) == tile.readPixelXY(i, 0);
+				case Left:
+					readPixelXY(0, i) == tile.readPixelXY(MaxIndex, i);
+				case Right:
+					readPixelXY(MaxIndex, i) == tile.readPixelXY(0, i);
+			}
+			if (!match) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
 
@@ -220,13 +219,6 @@ private abstract TileId(Int) to Int {
 	public function toInt():Int {
 		return this;
 	}
-}
-
-private typedef Tile = Grid<String>;
-
-private typedef TransformedTile = {
-	var tile:Tile;
-	var transformations:Array<Transformation>;
 }
 
 private enum abstract Transformation(Int) {
@@ -259,11 +251,5 @@ private enum abstract Edge(Int) to Int {
 			case Left: Right;
 			case Right: Left;
 		}
-	}
-}
-
-private abstract TileEdge(Point) to Hashable {
-	public function new(tileId:TileId, edge:Edge) {
-		this = new Point(tileId.toInt(), cast edge);
 	}
 }
