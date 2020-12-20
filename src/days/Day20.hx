@@ -43,10 +43,10 @@ class Day20 {
 			for (edge in Edge.all) {
 				final oppositeEdge = edge.opposite();
 				for (neighborId => neighborTile in puzzle) {
-					if (connections[tileId][edge] != null) {
+					if (connections[tileId].exists(edge)) {
 						break;
 					}
-					if (neighborId == tileId || connections[neighborId][oppositeEdge] != null) {
+					if (neighborId == tileId || connections[neighborId].exists(oppositeEdge)) {
 						continue;
 					}
 					var transformationsToCheck = Transformation.combinations;
