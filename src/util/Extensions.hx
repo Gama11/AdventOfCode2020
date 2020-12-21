@@ -120,4 +120,14 @@ class Extensions {
 	public static inline function iterable<V>(iterator:Iterator<V>):Iterable<V> {
 		return {iterator: () -> iterator};
 	}
+
+	public static function intersection<T>(a:Array<T>, b:Array<T>):Array<T> {
+		final result = [];
+		for (e in a) {
+			if (b.contains(e)) {
+				result.push(e);
+			}
+		}
+		return result;
+	}
 }

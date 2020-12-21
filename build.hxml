@@ -6,6 +6,7 @@
 # --interp
 -debug
 --macro keep("haxe.Int64")
+-D only-current-day
 
 -js export/test.js
 -cmd node export/test.js

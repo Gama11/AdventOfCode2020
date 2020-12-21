@@ -15,6 +15,7 @@ class Tests implements ITest {
 		return File.getContent('data/$name.txt').replace("\r", "");
 	}
 
+	#if !only_current_day
 	function specDay01() {
 		514579 == Day01.find2020Product(data("day01/example"), 2);
 		969024 == Day01.find2020Product(data("day01/input"), 2);
@@ -207,5 +208,11 @@ class Tests implements ITest {
 
 		273 == Day20.calculateWaterRoughness(data("day20/example"), data("day20/monster"));
 		2065 == Day20.calculateWaterRoughness(data("day20/input"), data("day20/monster"));
+	}
+	#end
+
+	function specDay21() {
+		5 == Day21.countIngredientsWithoutAllergens(data("day21/example"));
+		2573 == Day21.countIngredientsWithoutAllergens(data("day21/input"));
 	}
 }
