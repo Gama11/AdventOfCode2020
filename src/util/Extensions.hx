@@ -121,6 +121,10 @@ class Extensions {
 		return {iterator: () -> iterator};
 	}
 
+	public static inline function array<V>(iterator:Iterator<V>):Array<V> {
+		return [for (i in iterator) i];
+	}
+
 	public static function intersection<T>(a:Array<T>, b:Array<T>):Array<T> {
 		final result = [];
 		for (e in a) {

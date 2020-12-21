@@ -214,5 +214,8 @@ class Tests implements ITest {
 	function specDay21() {
 		5 == Day21.countIngredientsWithoutAllergens(data("day21/example"));
 		2573 == Day21.countIngredientsWithoutAllergens(data("day21/input"));
+
+		"mxmxvkd,sqjhc,fvjkl" == Day21.getCanonicalDangerousIngredientsList(data("day21/example"));
+		"bjpkhx,nsnqf,snhph,zmfqpn,qrbnjtj,dbhfd,thn,sthnsg" == Day21.getCanonicalDangerousIngredientsList(data("day21/input"));
 	}
 }
