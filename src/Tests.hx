@@ -209,7 +209,6 @@ class Tests implements ITest {
 		273 == Day20.calculateWaterRoughness(data("day20/example"), data("day20/monster"));
 		2065 == Day20.calculateWaterRoughness(data("day20/input"), data("day20/monster"));
 	}
-	#end
 
 	function specDay21() {
 		5 == Day21.countIngredientsWithoutAllergens(data("day21/example"));
@@ -217,5 +216,11 @@ class Tests implements ITest {
 
 		"mxmxvkd,sqjhc,fvjkl" == Day21.getCanonicalDangerousIngredientsList(data("day21/example"));
 		"bjpkhx,nsnqf,snhph,zmfqpn,qrbnjtj,dbhfd,thn,sthnsg" == Day21.getCanonicalDangerousIngredientsList(data("day21/input"));
+	}
+	#end
+
+	function specDay22() {
+		306 == Day22.findWinningScore(data("day22/example"));
+		35397 == Day22.findWinningScore(data("day22/input"));
 	}
 }
