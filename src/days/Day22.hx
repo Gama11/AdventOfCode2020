@@ -35,12 +35,9 @@ class Day22 {
 
 	public static function playRecursiveCrabCombat(input:String):Int {
 		function playGame(player1:Deck, player2:Deck):Bool {
-			function key():String {
-				return '[$player1,$player2]';
-			}
 			final seen = new Map();
 			while (player1.length > 0 && player2.length > 0) {
-				final key = key();
+				final key = Util.hashCode(player1) + Util.hashCode(player2);
 				if (seen[key]) {
 					return true;
 				}

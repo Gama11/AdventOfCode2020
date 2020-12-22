@@ -44,15 +44,7 @@ private class PointNImpl implements Hashable {
 
 	public function new(coordinates) {
 		this.coordinates = coordinates;
-		key = hashCode();
-	}
-
-	function hashCode():Int {
-		var result = 17;
-		for (coordinate in coordinates) {
-			result = 31 * result + coordinate;
-		}
-		return result;
+		key = Util.hashCode(coordinates);
 	}
 
 	public function toString():String {

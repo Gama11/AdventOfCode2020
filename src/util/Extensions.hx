@@ -134,4 +134,9 @@ class Extensions {
 		}
 		return result;
 	}
+
+	public static inline function also<T>(t:T, f:T->Void):T {
+		f(t);
+		return t;
+	}
 }

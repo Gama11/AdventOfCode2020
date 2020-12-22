@@ -68,6 +68,14 @@ class Util {
 			height: grid.length
 		};
 	}
+
+	public static function hashCode(a:Array<Int>):Int {
+		var result = 17;
+		for (n in a) {
+			result  = 31 * result + n;
+		}
+		return result;
+	}
 }
 
 typedef Grid<T> = {
