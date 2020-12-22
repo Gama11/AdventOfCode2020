@@ -2,7 +2,7 @@ package days;
 
 class Day15 {
 	public static function findNthSpokenNumber(input:String, n:Int):Int {
-		final startingNumbers = input.split(",").map(Std.parseInt);
+		final startingNumbers = input.splitToInt(",");
 		var lastSpoken = startingNumbers.pop();
 		final numberUtterances = [for (turn => number in startingNumbers) number => turn];
 		var lastTurn = startingNumbers.length;

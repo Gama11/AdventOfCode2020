@@ -5,8 +5,8 @@ class Day22 {
 		input = input.split("\n").filter(l -> !l.endsWith(":")).join("\n");
 		final players = input.split("\n\n");
 		return {
-			player1: players[0].split("\n").map(Std.parseInt),
-			player2: players[1].split("\n").map(Std.parseInt)
+			player1: players[0].splitToInt("\n"),
+			player2: players[1].splitToInt("\n")
 		};
 	}
 

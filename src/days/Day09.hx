@@ -2,7 +2,7 @@ package days;
 
 class Day09 {
 	public static function findWeaknessPart1(input:String, preambleLength:Int):Int {
-		final numbers = input.split("\n").map(Std.parseInt);
+		final numbers = input.splitToInt("\n");
 		final preamble = numbers.slice(0, preambleLength);
 		final sums = numbers.slice(preambleLength);
 		for (sum in sums) {
@@ -17,7 +17,7 @@ class Day09 {
 	}
 
 	public static function findWeaknessPart2(input:String, target:Int):Int {
-		final numbers = input.split("\n").map(Std.parseInt);
+		final numbers = input.splitToInt("\n");
 		for (i in 0...numbers.length) {
 			final start = numbers[i];
 			var sum = start;

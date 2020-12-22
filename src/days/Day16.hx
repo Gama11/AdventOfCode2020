@@ -16,7 +16,7 @@ class Day16 {
 			}
 		];
 		function parseTicket(line:String):Ticket {
-			return line.split(",").map(Std.parseInt);
+			return line.splitToInt(",");
 		}
 		return {
 			rules: rules,

@@ -2,9 +2,6 @@ package days;
 
 class Day19 {
 	static function parse(input:String):Input {
-		function ints(s:String):Array<Int> {
-			return s.split(" ").map(Std.parseInt);
-		}
 		final sections = input.split("\n\n");
 		final indexPattern = ~/^(\d+): /;
 		final rules = [];
@@ -15,10 +12,10 @@ class Day19 {
 			rules[index] = if (line.contains("\"")) {
 				Character(line.charAt(line.indexOf("\"") + 1));
 			} else if (line.contains("|")) {
-				final parts = line.split(" | ");
-				Or(ints(parts[0]), ints(parts[1]));
+				final parts = line.split(" | ").map(part -> part.splitToInt(" "));
+				Or(parts[0], parts[1]);
 			} else {
-				All(ints(line));
+				All(line.splitToInt(" "));
 			}
 		}
 		return {

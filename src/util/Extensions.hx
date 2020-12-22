@@ -5,6 +5,10 @@ class Extensions {
 		return Std.parseInt(reg.matched(n));
 	}
 
+	public static inline function splitToInt(s:String, delimiter:String):Array<Int> {
+		return s.split(delimiter).map(Std.parseInt);
+	}
+
 	public static function sum(a:Array<Int>):Int {
 		return a.fold((a, b) -> a + b, 0);
 	}

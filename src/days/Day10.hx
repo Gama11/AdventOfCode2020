@@ -2,7 +2,7 @@ package days;
 
 class Day10 {
 	static function calculateJoltageDifferences(input:String):Array<Int> {
-		final joltages = input.split("\n").map(Std.parseInt);
+		final joltages = input.splitToInt("\n");
 		joltages.sort(Reflect.compare);
 		joltages.push(joltages.last() + 3);
 		final differences = [];

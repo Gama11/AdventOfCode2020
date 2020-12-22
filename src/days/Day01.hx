@@ -2,7 +2,7 @@ package days;
 
 class Day01 {
 	public static function find2020Product(input:String, parts:Int):Int {
-		final numbers = input.split("\n").map(Std.parseInt);
+		final numbers = input.splitToInt("\n");
 		final set = [for (n in numbers) n => true];
 		function findProduct(target:Int, parts:Int):Null<Int> {
 			for (number in set.keys()) {
