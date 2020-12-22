@@ -220,7 +220,11 @@ class Tests implements ITest {
 	#end
 
 	function specDay22() {
-		306 == Day22.findWinningScore(data("day22/example"));
-		35397 == Day22.findWinningScore(data("day22/input"));
+		306 == Day22.playCrabCombat(data("day22/example1"));
+		35397 == Day22.playCrabCombat(data("day22/input"));
+
+		291 == Day22.playRecursiveCrabCombat(data("day22/example1"));
+		105 == Day22.playRecursiveCrabCombat(data("day22/example2"));
+		31120 == Day22.playRecursiveCrabCombat(data("day22/input"));
 	}
 }
