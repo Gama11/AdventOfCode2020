@@ -1,49 +1,80 @@
 package days;
 
-import polygonal.ds.Dll;
+import haxe.ds.Vector;
 
 class Day23 {
-	public static function playCrabCups(input:String, moves:Int):String {
+	static function playCrabCups(input:String, moves:Int, size:Int):Vector<Cup> {
 		final input = input.splitToInt("");
-		final highest = input.max(n -> n).value;
-		final cups = new Dll(0, input).close();
-		var current = cups.getNodeAt(0);
-		function getNodeWithValue(value:Int) {
-			final index = [for (i in 0...cups.size) i].find(i -> cups.get(i) == value);
-			return cups.getNodeAt(index);
+
+		var current = new Cup(input[0]);
+		final cups = new Vector(size + 1);
+		cups[current.label] = current;
+
+		var it = current;
+		for (i in 1...size) {
+			final label = if (i >= input.length) i + 1 else input[i];
+			final next = new Cup(label);
+			cups[next.label] = next;
+			it.next = next;
+			it = next;
 		}
+		it.next = current;
+
 		for (_ in 0...moves) {
-			final nextThree = [
-				for (_ in 0...3) {
-					cups.removeAt((cups.indexOf(current.val) + 1) % cups.size);
-				}
-			];
+			final next1 = current.next;
+			final next2 = next1.next;
+			final next3 = next2.next;
 
 			function nextDestination(destination:Int):Int {
 				destination--;
 				if (destination < 1) {
-					destination = highest;
+					destination = size;
 				}
 				return destination;
 			}
-			var destination = nextDestination(current.val);
-			while (nextThree.contains(destination)) {
+			var destination = nextDestination(current.label);
+			while (next1.label == destination || next2.label == destination || next3.label == destination) {
 				destination = nextDestination(destination);
 			}
 
-			final destinationNode = getNodeWithValue(destination);
-			while (nextThree.length > 0) {
-				cups.insertAfter(destinationNode, nextThree.pop());
-			}
+			final destinationCup = cups[destination];
+			final afterDestination = destinationCup.next;
+			current.next = next3.next;
+			destinationCup.next = next1;
+			next3.next = afterDestination;
 
 			current = current.next;
 		}
-		var labels = "";
-		var node = getNodeWithValue(1).next;
-		while (node.val != 1) {
-			labels += node.val;
-			node = node.next;
-		}
-		return labels;
+		return cups;
+	}
+
+	public static function getLabelsAfterOne(input:String, moves:Int):String {
+		final cups = playCrabCups(input, moves, input.length);
+		return cups[1].toString("").replace("1", "");
+	}
+
+	public static function findProductOfLabelsAfterOne(input:String, moves:Int, size:Int):Int64 {
+		final cups = playCrabCups(input, moves, size);
+		final cupAfterOne = cups[1].next;
+		return (cupAfterOne.label : Int64) * cupAfterOne.next.label;
+	}
+}
+
+private class Cup {
+	public final label:Int;
+	public var next:Cup;
+
+	public function new(label:Int) {
+		this.label = label;
+	}
+
+	public function toString(separator = " "):String {
+		var result = "";
+		var it = this;
+		do {
+			result += it.label + separator;
+			it = it.next;
+		} while (it != this);
+		return result;
 	}
 }

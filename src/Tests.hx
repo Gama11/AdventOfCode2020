@@ -229,8 +229,11 @@ class Tests implements ITest {
 	#end
 
 	function specDay23() {
-		"92658374" == Day23.playCrabCups("389125467", 10);
-		"67384529" == Day23.playCrabCups("389125467", 100);
-		"25368479" == Day23.playCrabCups("326519478", 100);
+		"92658374" == Day23.getLabelsAfterOne("389125467", 10);
+		"67384529" == Day23.getLabelsAfterOne("389125467", 100);
+		"25368479" == Day23.getLabelsAfterOne("326519478", 100);
+
+		int64("149245887792") == Day23.findProductOfLabelsAfterOne("389125467", 10000000, 1000000);
+		int64("44541319250") == Day23.findProductOfLabelsAfterOne("326519478", 10000000, 1000000);
 	}
 }
