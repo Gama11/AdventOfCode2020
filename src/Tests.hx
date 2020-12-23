@@ -217,7 +217,6 @@ class Tests implements ITest {
 		"mxmxvkd,sqjhc,fvjkl" == Day21.getCanonicalDangerousIngredientsList(data("day21/example"));
 		"bjpkhx,nsnqf,snhph,zmfqpn,qrbnjtj,dbhfd,thn,sthnsg" == Day21.getCanonicalDangerousIngredientsList(data("day21/input"));
 	}
-	#end
 
 	function specDay22() {
 		306 == Day22.playCrabCombat(data("day22/example1"));
@@ -226,5 +225,12 @@ class Tests implements ITest {
 		291 == Day22.playRecursiveCrabCombat(data("day22/example1"));
 		105 == Day22.playRecursiveCrabCombat(data("day22/example2"));
 		31120 == Day22.playRecursiveCrabCombat(data("day22/input"));
+	}
+	#end
+
+	function specDay23() {
+		"92658374" == Day23.playCrabCups("389125467", 10);
+		"67384529" == Day23.playCrabCups("389125467", 100);
+		"25368479" == Day23.playCrabCups("326519478", 100);
 	}
 }
