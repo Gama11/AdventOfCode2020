@@ -155,7 +155,7 @@ class Tests implements ITest {
 		1836 == Day15.findNthSpokenNumber("3,1,2", 2020);
 		1085 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 2020);
 
-		// 10652 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 30000000);
+		10652 == Day15.findNthSpokenNumber("1,20,11,6,12,0", 30000000);
 	}
 
 	function specDay16() {
@@ -226,7 +226,6 @@ class Tests implements ITest {
 		105 == Day22.playRecursiveCrabCombat(data("day22/example2"));
 		31120 == Day22.playRecursiveCrabCombat(data("day22/input"));
 	}
-	#end
 
 	function specDay23() {
 		"92658374" == Day23.getLabelsAfterOne("389125467", 10);
@@ -235,5 +234,11 @@ class Tests implements ITest {
 
 		int64("149245887792") == Day23.findProductOfLabelsAfterOne("389125467", 10000000, 1000000);
 		int64("44541319250") == Day23.findProductOfLabelsAfterOne("326519478", 10000000, 1000000);
+	}
+	#end
+
+	function specDay24() {
+		10 == Day24.countBlackTiles(data("day24/example"));
+		420 == Day24.countBlackTiles(data("day24/input"));
 	}
 }

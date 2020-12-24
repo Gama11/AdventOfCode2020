@@ -25,6 +25,10 @@ abstract HashMap<K:Hashable, V>(HashTable<K, V>) to Iterable<V> {
 		return this.hasKey(key);
 	}
 
+	public function getOrDefault(key:K, defaultValue:V):V {
+		return if (exists(key)) get(key) else defaultValue;
+	}
+
 	public inline function keyValueIterator():HashMapKeyValueIterator<K, V> {
 		return new HashMapKeyValueIterator<K, V>(cast this);
 	}
