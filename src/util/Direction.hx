@@ -9,6 +9,8 @@ abstract Direction(Point) to Point to Hashable {
 	public static final Down = new Direction(0, 1);
 	public static final Right = new Direction(1, 0);
 
+	public static final None = new Direction(0, 0);
+
 	public static final horizontals = [Left, Up, Right, Down];
 	public static final diagonals = [Left + Up, Right + Up, Left + Down, Right + Down];
 	public static final all = horizontals.concat(diagonals);

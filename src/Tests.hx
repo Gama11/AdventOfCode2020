@@ -240,5 +240,10 @@ class Tests implements ITest {
 	function specDay24() {
 		10 == Day24.countBlackTiles(data("day24/example"));
 		420 == Day24.countBlackTiles(data("day24/input"));
+
+		23 == Day24.simulateArtExhibit(data("day24/example"), 5);
+		37 == Day24.simulateArtExhibit(data("day24/example"), 10);
+		2208 == Day24.simulateArtExhibit(data("day24/example"), 100);
+		4206 == Day24.simulateArtExhibit(data("day24/input"), 100);
 	}
 }
