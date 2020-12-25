@@ -235,7 +235,6 @@ class Tests implements ITest {
 		int64("149245887792") == Day23.findProductOfLabelsAfterOne("389125467", 10000000, 1000000);
 		int64("44541319250") == Day23.findProductOfLabelsAfterOne("326519478", 10000000, 1000000);
 	}
-	#end
 
 	function specDay24() {
 		10 == Day24.countBlackTiles(data("day24/example"));
@@ -245,5 +244,11 @@ class Tests implements ITest {
 		37 == Day24.simulateArtExhibit(data("day24/example"), 10);
 		2208 == Day24.simulateArtExhibit(data("day24/example"), 100);
 		4206 == Day24.simulateArtExhibit(data("day24/input"), 100);
+	}
+	#end
+
+	function specDay25() {
+		14897079 == Day25.reverseEngineerEncryptionKey(5764801, 17807724);
+		7032853 == Day25.reverseEngineerEncryptionKey(7573546, 17786549);
 	}
 }
